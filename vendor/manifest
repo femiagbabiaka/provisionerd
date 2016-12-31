@@ -1,0 +1,62 @@
+{
+	"version": 0,
+	"dependencies": [
+		{
+			"importpath": "github.com/denisenkom/go-mssqldb",
+			"repository": "https://github.com/denisenkom/go-mssqldb",
+			"revision": "aa91b9def474faafb2406c8b562ae1e0e1f89ea4",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/go-kit/kit/endpoint",
+			"repository": "https://github.com/go-kit/kit",
+			"revision": "905b60253dbac4a14625ce52217ede00d3a3aca7",
+			"branch": "master",
+			"path": "/endpoint"
+		},
+		{
+			"importpath": "github.com/go-sql-driver/mysql",
+			"repository": "https://github.com/go-sql-driver/mysql",
+			"revision": "2e00b5cd70399450106cec6431c2e2ce3cae5034",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/jinzhu/gorm",
+			"repository": "https://github.com/jinzhu/gorm",
+			"revision": "0fbff1e8f0821fc67ef793a9f403beda5ca372b8",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/jinzhu/inflection",
+			"repository": "https://github.com/jinzhu/inflection",
+			"revision": "74387dc39a75e970e7a3ae6a3386b5bd2e5c5cff",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/lib/pq",
+			"repository": "https://github.com/lib/pq",
+			"revision": "22cb3e4c487ce6242e2b03369219e5631eed1221",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/mattn/go-sqlite3",
+			"repository": "https://github.com/mattn/go-sqlite3",
+			"revision": "2d44decb4941c9cdf72c22297b7890faf7da9bcb",
+			"branch": "master"
+		},
+		{
+			"importpath": "golang.org/x/crypto/md4",
+			"repository": "https://go.googlesource.com/crypto",
+			"revision": "f6b343c37ca80bfa8ea539da67a0b621f84fab1d",
+			"branch": "master",
+			"path": "/md4"
+		},
+		{
+			"importpath": "golang.org/x/net/context",
+			"repository": "https://go.googlesource.com/net",
+			"revision": "8fd7f25955530b92e73e9e1932a41b522b22ccd9",
+			"branch": "master",
+			"path": "/context"
+		}
+	]
+}
