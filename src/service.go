@@ -4,17 +4,38 @@ import (
 	"errors"
 )
 
+// Provisionerd is an exported type that
+// contains the various methods our HTTP handlers
+// will need to provision various pieces of infrastructure.
 type Provisionerd interface {
-	AddVirtualMailer(mailerInfo) (string, error)
-	RemoveVirtualMailer(mailerInfo) (string, error)
+	AddVirtualMailer(virtualMailer) (string, error)
+	RemoveVirtualMailer(virtualMailer) (string, error)
+	GetVirtualMailer(id int) (virtualMailer, error)
 }
 
 type provisionerd struct{}
 
-func (provisionerd) AddVirtualMailer(m mailerInfo) (string, error) {
+func (provisionerd) AddVirtualMailer(vm virtualMailer) (virtualMailer, error) {
+	vm, err := vm.CreateMailer()
+	
+	if err != nil {
+		return vm, ErrCreateMailer
+	}
+	
+	return vm, nil
 }
 
-func (provisionerd) RemoveVirtualMailer(m mailerInfo) (string, error) {
+func (provisionerd) RemoveVirtualMailer(id int) (bool, error) {
+	status, err := DeleteMailer(id)
+	
+	if err != nil {
+		return false, ErrDeleteMailer
+	}
+	
+	return status, nil
 }
 
-var ErrEmpty = errors.New("empty string")
+// ErrCreateMailer An error representing issues with mailer creation.
+var ErrCreateMailer = errors.New("Couldn't create the mailer.")
+// ErrDeleteMailer An error representing issues with mailer deletion.
+var ErrDeleteMailer = errors.New("Couldn't delete the mailer.")
