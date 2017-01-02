@@ -1,9 +1,11 @@
 package main
 
 import (
-	"net/http"
 	"golang.org/x/net/context"
 	"os"
+	"net/http"
+	
+	"github.com/gorilla/mux"
 
 	httptransport "github.com/go-kit/kit/transport/http"
 	"github.com/go-kit/kit/log"
@@ -23,7 +25,11 @@ func main() {
 		encodeResponse,
 	)
 	
-	http.Handle("/addVirtualMailer", addVirtualMailerHandler)
+	r := mux.NewRouter()
+	r.Methods("POST").Path("/virtualmailer").Handler(addVirtualMailerHandler)
+	
+	http.Handle("/", r)
+
 	logger.Log("msg", "HTTP", "addr", ":8080")
 	logger.Log("err", http.ListenAndServe(":8080", nil))
 }

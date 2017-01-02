@@ -11,15 +11,7 @@ import (
 func makeCreateMailerEndpoint(svc Provisionerd) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (interface{}, error) {
 		req := request.(createMailerRequest)
-		v, err := svc.AddVirtualMailer(
-			VirtualMailer{
-				req.AutomationMailerID,
-				req.Name,
-				req.SMTPHost,
-				req.BounceFormat,
-				req.IPAddress,
-				req.Category,
-			})
+		v, err := svc.AddVirtualMailer(req.VM)
 
 		if err != nil {
 			return createMailerResponse{v, err.Error()}, nil
@@ -40,14 +32,15 @@ func decodeCreateMailerRequest(_ context.Context, r *http.Request) (interface{},
 }
 
 func encodeResponse(_ context.Context, w http.ResponseWriter, response interface{}) error {
+	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	return json.NewEncoder(w).Encode(response)
 }
 
 type createMailerRequest struct {
-	VirtualMailer
+	VM VirtualMailer
 }
 
 type createMailerResponse struct {
-	VM VirtualMailer `json:"data"`
+	VM VirtualMailer `json:"data,omitempty"`
 	Err string `json:"err,omitempty"`
 }

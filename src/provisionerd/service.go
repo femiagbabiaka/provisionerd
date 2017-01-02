@@ -18,7 +18,7 @@ func (provisionerd) AddVirtualMailer(vm VirtualMailer) (VirtualMailer, error) {
 	vm, err := vm.CreateMailer()
 	
 	if err != nil {
-		return vm, ErrCreateMailer
+		return VirtualMailer{}, ErrCreateMailer
 	}
 	
 	return vm, nil
