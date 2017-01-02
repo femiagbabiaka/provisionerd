@@ -8,14 +8,13 @@ import (
 // contains the various methods our HTTP handlers
 // will need to provision various pieces of infrastructure.
 type Provisionerd interface {
-	AddVirtualMailer(virtualMailer) (string, error)
-	RemoveVirtualMailer(virtualMailer) (string, error)
-	GetVirtualMailer(id int) (virtualMailer, error)
+	AddVirtualMailer(VirtualMailer) (VirtualMailer, error)
+	RemoveVirtualMailer(int) (bool, error)
 }
 
 type provisionerd struct{}
 
-func (provisionerd) AddVirtualMailer(vm virtualMailer) (virtualMailer, error) {
+func (provisionerd) AddVirtualMailer(vm VirtualMailer) (VirtualMailer, error) {
 	vm, err := vm.CreateMailer()
 	
 	if err != nil {

@@ -9,7 +9,8 @@ import (
 	"errors"
 )
 
-type virtualMailer struct {
+// VirtualMailer is an exported type that represents a Mailserver row in our database.
+type VirtualMailer struct {
 	AutomationMailerID int `json:"automation_mailer_id" sql:"automationmailer_id"`
 	Name sql.NullString `json:"name" sql:"name"`
 	SMTPHost sql.NullString `json:"smtp_host" sql:"smtphost"`
@@ -18,7 +19,8 @@ type virtualMailer struct {
 	Category int `json:"category" sql:"category"`
 }
 
-func (vm virtualMailer) CreateMailer() (virtualMailer, error) {
+// CreateMailer Method to add a virtual mailer.
+func (vm VirtualMailer) CreateMailer() (VirtualMailer, error) {
 	if ! vm.ValidateMailer() {
 		return vm, ErrInvalidMailer
 	}
@@ -36,6 +38,31 @@ func (vm virtualMailer) CreateMailer() (virtualMailer, error) {
 	}
 
 	return vm, nil
+}
+
+// ValidateMailer Method to validate params of a VirtualMailer struct.
+func (vm VirtualMailer) ValidateMailer() bool {
+	if vm.Name.String == "" {
+		return false
+	}
+	
+	if vm.SMTPHost.String == "" {
+		return false
+	}
+	
+	if vm.BounceFormat.String == "" {
+		return false
+	} 
+	
+	if vm.IPAddress.String == "" {
+		return false
+	}
+	
+	if vm.Category == 0 {
+		return false
+	}
+	
+	return true
 }
 
 // DeleteMailer Is responsible for deleting a mailserver.
@@ -61,30 +88,6 @@ func DeleteMailer(id int) (bool, error) {
 	
 	return true, nil
 	
-}
-
-func (vm virtualMailer) ValidateMailer() bool {
-	if vm.Name.String == "" {
-		return false
-	}
-	
-	if vm.SMTPHost.String == "" {
-		return false
-	}
-	
-	if vm.BounceFormat.String == "" {
-		return false
-	} 
-	
-	if vm.IPAddress.String == "" {
-		return false
-	}
-	
-	if vm.Category == 0 {
-		return false
-	}
-	
-	return true
 }
 
 func databaseConnect() (*sqlx.DB, error) {
